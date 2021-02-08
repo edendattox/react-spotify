@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./Content.styles.scss";
-import { StoreContext } from "../../page/MusicPlayer/MusicPlayer.component";
+import { StoreContext } from "../MusicPlayer/MusicPlayer.component";
 
 const Content = () => {
   const { state } = useContext(StoreContext);

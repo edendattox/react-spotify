@@ -1,4 +1,3 @@
-import "./App.css";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer.component";
 
 function App() {
