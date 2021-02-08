@@ -1,19 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useContext } from "react";
 import "./Sidebar.styles.scss";
 import logo from "../../images/spotify-white.png";
 import Modal from "../Modal/Modal.component";
+import Toast from "../Toast/Toast.component";
+import { StoreContext } from "../MusicPlayer/MusicPlayer.component";
 
 const Sidebar = () => {
-  const [state, setState] = useState({
-    currentPlaylist: "home",
-    Modal: false,
-    playlists: {
-      home: null,
-      favorites: null,
-    },
+  const [sidebarState, setState] = useState({
+    modal: false,
+    toast: "",
   });
 
+  const { state, dispatch } = useContext(StoreContext);
+
+  const playlistRef = useRef(null);
+
   const playlists = Object.keys(state.playlists);
+
+  const addPlaylist = (e) => {
+    e.preventDefault();
+    const list = playlistRef.current.value;
+
+    dispatch({ type: "ADD_PLAYLIST", playlist: list });
+
+    setState({
+      ...sidebarState,
+      modal: false,
+      toast: "Your playlist was created successfully!",
+    });
+  };
+
+  const handelModel = () => {
+    setState({ ...sidebarState, modal: !sidebarState.model });
+  };
 
   return (
     <ul className="sidebar-container">
@@ -25,7 +44,9 @@ const Sidebar = () => {
         <li
           keys={list}
           className={list === state.currentPlaylist ? "active" : ""}
-          onClick={() => setState({ ...state, currentPlaylist: list })}
+          onClick={() => {
+            dispatch({ type: "SET_PLAYLIST", playlist: list });
+          }}
         >
           {list}
         </li>
@@ -33,17 +54,31 @@ const Sidebar = () => {
 
       <li
         className="new-playlist"
-        onClick={() => setState({ ...state, Modal: true })}
+        onClick={() => setState({ ...sidebarState, modal: true })}
       >
         <i className="fa fa-plus-circle" />
         <span>New Playlist</span>
       </li>
-      <Modal
-        show={state.Modal}
-        close={() => setState({ ...state, Modal: false })}
-      >
-        yo sup dude
+      <Modal show={sidebarState.modal} close={handelModel}>
+        <form onSubmit={addPlaylist}>
+          <div className="title">New Playlist</div>
+
+          <div className="content-wrap">
+            <input
+              type="text"
+              placeholder="My Playlist"
+              required
+              ref={playlistRef}
+            />
+            <br />
+            <button type="submit">Create</button>
+          </div>
+        </form>
       </Modal>
+      <Toast
+        toast={sidebarState.toast}
+        close={() => setState({ ...sidebarState, toast: "" })}
+      />
     </ul>
   );
 };

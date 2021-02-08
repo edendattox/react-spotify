@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Content.styles.scss";
+import { StoreContext } from "../../page/MusicPlayer/MusicPlayer.component";
 
-const Content = () => <div className="content-container"></div>;
+const Content = () => {
+  const { state } = useContext(StoreContext);
+
+  return <div className="content-container">{state.currentPlaylist}</div>;
+};
 
 export default Content;
