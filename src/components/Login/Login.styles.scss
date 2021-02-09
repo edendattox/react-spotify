@@ -1,0 +1,20 @@
+.login-container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background: black;
+  padding: 2em;
+  width: 100%;
+  // linear-gradient(black, #1ed760, black);
+
+  .img {
+    width: 100%;
+  }
+
+  a {
+    padding: 20px;
+    color: #e3f1e8;
+    border-radius: 4em;
+    background-color: #1ed760;
+  }
+}
