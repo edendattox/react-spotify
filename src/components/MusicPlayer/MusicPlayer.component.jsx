@@ -4,6 +4,7 @@ import Content from "../Content/Content.component";
 import Playbar from "../Playbar/Playbar.component";
 import Sidebar from "../Sidebar/Sidebar.component";
 import Topbar from "../Topbar/Topbar.component";
+import media from "../../media.json";
 
 export const StoreContext = createContext(null);
 
@@ -11,8 +12,9 @@ const DEFAULT_PLAYLIST = "home";
 
 const initialState = {
   currentPlaylist: DEFAULT_PLAYLIST,
+  media,
   playlists: {
-    home: new Set(),
+    home: new Set(media.ids),
     favorites: new Set(),
   },
 };
@@ -26,6 +28,9 @@ const reducer = (state, action) => {
       };
     case "SET_PLAYLIST":
       return { ...state, currentPlaylist: action.playlist };
+    case "ADD_FAVORITE":
+      state.playlists.favorites.add(action.songId);
+      return { ...state };
   }
 
   return state;

@@ -20,6 +20,7 @@ const Sidebar = () => {
   const addPlaylist = (e) => {
     e.preventDefault();
     const list = playlistRef.current.value;
+    console.log(list);
 
     dispatch({ type: "ADD_PLAYLIST", playlist: list });
 
@@ -31,7 +32,7 @@ const Sidebar = () => {
   };
 
   const handelModel = () => {
-    setState({ ...sidebarState, modal: !sidebarState.model });
+    setState({ ...sidebarState, modal: !sidebarState.modal });
   };
 
   return (
@@ -42,7 +43,7 @@ const Sidebar = () => {
 
       {playlists.map((list) => (
         <li
-          keys={list}
+          key={list}
           className={list === state.currentPlaylist ? "active" : ""}
           onClick={() => {
             dispatch({ type: "SET_PLAYLIST", playlist: list });
