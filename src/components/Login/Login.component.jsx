@@ -1,5 +1,6 @@
 import React from "react";
 import "./Login.styles.scss";
+import { loginUrl } from "./spotify";
 
 function Login() {
   return (
@@ -9,7 +10,9 @@ function Login() {
         alt="Spotify"
         style={{ borderRadius: "10em" }}
       />
-      <a className="login-button"> Login With Spotify</a>
+      <a className="login-button" href={loginUrl}>
+        Login With Spotify
+      </a>
     </div>
   );
 }
