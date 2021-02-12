@@ -8,9 +8,11 @@ import Sidebar from "../Sidebar/Sidebar.component";
 const MusicPlayer = ({ spotify }) => {
   return (
     <div className="music-player">
+      <div className="player__body">
+        <Sidebar />
+        <Content spotify={spotify} />
+      </div>
       <Playbar />
-      <Sidebar />
-      <Content />
     </div>
   );
 };

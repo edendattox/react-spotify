@@ -4,8 +4,12 @@ import SidebarOption from "../SidebarOption/SidebarOption.component";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import { useDataLayerValue } from "../../DataLayer";
 
 const Sidebar = () => {
+  // we are not using state cauz we are using what we need using destructuring.
+  const [{ playlists }, dispatch] = useDataLayerValue();
+
   return (
     <div className="sidebar">
       <img
@@ -21,9 +25,9 @@ const Sidebar = () => {
       <strong className="sidebar__title"> PLAYLISTS</strong>
       <hr />
 
-      <SidebarOption title="HIP HOP" />
-      <SidebarOption title="HIP HOP 1" />
-      <SidebarOption title="HIP HOP 2" />
+      {playlists?.items?.map((playlist) => (
+        <SidebarOption title={playlist.name} />
+      ))}
     </div>
   );
 };
